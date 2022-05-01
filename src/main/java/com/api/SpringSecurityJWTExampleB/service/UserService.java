@@ -6,7 +6,7 @@ import com.api.SpringSecurityJWTExampleB.entity.User;
 import java.util.List;
 
 /*
-- Source time code: 18:00
+--  time code: 18:00
  */
 
 public interface UserService {

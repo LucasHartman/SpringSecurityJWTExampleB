@@ -11,6 +11,15 @@ import org.springframework.context.annotation.Bean;
 import java.util.ArrayList;
 
 
+/*
+--	This Class
+-	Executes application
+-	Create a Number of User,Roels and add roles to users
+- 	Check result: http://localhost:8080/api/users
+
+--	time code: 42:30
+ */
+
 @SpringBootApplication
 public class SpringSecurityJwtExampleBApplication {
 
@@ -20,10 +29,11 @@ public class SpringSecurityJwtExampleBApplication {
 
 	@Bean
 	CommandLineRunner run(UserService userService) {
+		// Create User, Roles, Add roles to users
 		// inject UserService logic into this commandline runner
-		// This will run after the application has initialized
+		// This will run AFTER the application has initialized
 		return  args -> {
-			/*
+
 			// Create roles
 			userService.saveRole( new Role(null, "ROLE_USER"));
 			userService.saveRole( new Role(null, "ROLE_MANAGER"));
@@ -34,9 +44,7 @@ public class SpringSecurityJwtExampleBApplication {
 			userService.saveUser(new User(null, "Shiroe Shirogane",		"Shiroe",	"1234", new ArrayList<>()));
 			userService.saveUser(new User(null, "Naotsugu Hasegawa",	"Naotsugu",	"1234", new ArrayList<>()));
 			userService.saveUser(new User(null, "Akatsuki Hanekura", 	"Akatsuki",	"1234", new ArrayList<>()));
-			userService.saveUser(new User(null, "Nyanta Chief", 		"Nyanta ",	"1234", new ArrayList<>()));
-
-			 */
+			userService.saveUser(new User(null, "Nyanta Chief", 		"Nyanta",	"1234", new ArrayList<>()));
 
 			// Add role to user
 			userService.addRoleToUser("Akatsuki", "ROLE_USER");

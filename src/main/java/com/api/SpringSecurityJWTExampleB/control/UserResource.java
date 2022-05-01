@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 /*
-- Source time code: 28:30
+- time code: 28:30
  */
 
 @RestController

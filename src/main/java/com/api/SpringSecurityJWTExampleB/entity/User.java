@@ -2,9 +2,7 @@ package com.api.SpringSecurityJWTExampleB.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-import  com.api.SpringSecurityJWTExampleB.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +10,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /*
-- Source time code: 8:50
+-- This Class
+-   Representing data that can be persisted to the database table.
+-   Create a table in the database
+-   @Entity:    implement an entity into a schema/table in your database
+-   @Id:        represents the member field
+
+--  time code: 8:50
  */
 
 @Entity

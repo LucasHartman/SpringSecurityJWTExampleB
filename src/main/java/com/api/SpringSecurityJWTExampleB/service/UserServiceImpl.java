@@ -13,7 +13,12 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /*
-- Source time code: 21:50
+-- This Class
+-   GET and CREATE user Methods
+-   @Service:           business logic resides within the service layer
+-   Business logic:     determines how data is transformed, and how it is routed to users
+
+--  time code: 21:50
  */
 
 @Service
