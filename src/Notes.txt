@@ -1,0 +1,31 @@
+
+
+---------------------------
+Concepts
+--------------------------
+
+Authentication
+- Verifies you are who you say you are
+- Methods: Login form, HTTP authentication, Custom auth. method
+
+Authorization
+- Everybody has access but not access to all resources
+- Methods: Access Control URLs, Access Control List (ACLs)
+
+--------------------------
+--------------------------
+
+Security with JSON web Token
+
+            Client (user,application) --- (Request: POST/login, user/password) ---> Application
+
+    // if authorization is successful...
+
+            Client <--- (Json WEb Token (JWT) ---
+
+    // if Client want to get some different resource...
+
+            Client+(JWT) --- (GET/users, JWT ---> Application
+
+--------------------------
+--------------------------

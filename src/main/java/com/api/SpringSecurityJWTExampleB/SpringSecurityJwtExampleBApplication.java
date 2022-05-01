@@ -7,14 +7,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
-
 
 /*
 --	This Class
 -	Executes application
--	Create a Number of User,Roels and add roles to users
+-	Create a Number of User,Role and add roles to users
 - 	Check result: http://localhost:8080/api/users
 
 --	time code: 42:30
@@ -28,10 +29,17 @@ public class SpringSecurityJwtExampleBApplication {
 	}
 
 	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
 	CommandLineRunner run(UserService userService) {
-		// Create User, Roles, Add roles to users
-		// inject UserService logic into this commandline runner
-		// This will run AFTER the application has initialized
+		/*
+		- This Method: Creates Users, Roles & adds roles to users
+		- inject UserService logic into this commandline runner
+		- This will run AFTER the application is initialized
+		 */
 		return  args -> {
 
 			// Create roles
@@ -40,7 +48,7 @@ public class SpringSecurityJwtExampleBApplication {
 			userService.saveRole( new Role(null, "ROLE_ADMIN"));
 			userService.saveRole( new Role(null, "ROLE_SUPER_ADMIN"));
 
-			// create Users
+			// Create Users
 			userService.saveUser(new User(null, "Shiroe Shirogane",		"Shiroe",	"1234", new ArrayList<>()));
 			userService.saveUser(new User(null, "Naotsugu Hasegawa",	"Naotsugu",	"1234", new ArrayList<>()));
 			userService.saveUser(new User(null, "Akatsuki Hanekura", 	"Akatsuki",	"1234", new ArrayList<>()));
