@@ -14,6 +14,7 @@ package com.api.SpringSecurityJWTExampleB.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.api.SpringSecurityJWTExampleB.filter.CustomAuthenticationFilter;
+
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 @EnableWebSecurity
@@ -51,12 +55,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         3. authorizeRequest,  permit everybody to  access this application
         4. add filter, check user when they log in
 
-        -- time code 1:02:20
+        -- time code 1:02:20 & 1:27:30
          */
-        http.csrf().disable(); // disable save by cookies mechanic
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean()); // initialize constructor
+        customAuthenticationFilter.setFilterProcessesUrl("/api/login/**"); // set login-page to /api/login url
+        http.csrf().disable(); // disable csrf
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().anyRequest().permitAll(); //
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean())); // Authentication Filter (check CustomAuthenticationFilter.java)
+        http.authorizeRequests().antMatchers("/api/login").permitAll(); // permit this page to all users (order matters)
+        http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROLE_USER"); // give authorization to user accessing /api/user/..)
+        http.authorizeRequests().antMatchers(POST, "/api/user/save/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().anyRequest().authenticated();
+        http.addFilter(customAuthenticationFilter); // Authentication Filter (check CustomAuthenticationFilter.java)
     }
 
     @Bean
